@@ -4,7 +4,8 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://cakebyrobyn.co.za',
+  site: 'https://lemarboks.github.io',
+  base: '/cake_byRobyn',
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),

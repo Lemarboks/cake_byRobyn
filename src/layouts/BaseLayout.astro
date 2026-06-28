@@ -23,7 +23,8 @@ const {
   schema,
 } = Astro.props;
 
-const siteUrl = import.meta.env.SITE_URL ?? 'https://cakebyrobyn.co.za';
+const siteUrl = `https://lemarboks.github.io/cake_byRobyn`;
+const base    = import.meta.env.BASE_URL;
 const canonical = canonicalUrl ?? `${siteUrl}${Astro.url.pathname}`;
 
 const localBusinessSchema = {
@@ -78,8 +79,8 @@ const localBusinessSchema = {
   <meta name="twitter:image"       content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/brand/logo.png" />
-  <link rel="apple-touch-icon"      href="/brand/logo.png" />
+  <link rel="icon" type="image/png" href={`${base}brand/logo.png`} />
+  <link rel="apple-touch-icon"      href={`${base}brand/logo.png`} />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

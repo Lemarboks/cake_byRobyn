@@ -3,8 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getFeaturedProducts } from '../data/products';
 import { reviews } from '../data/gallery';
 
-const WA = import.meta.env.PUBLIC_WHATSAPP_NUMBER  ?? '27000000000';
-const IG = import.meta.env.PUBLIC_INSTAGRAM_HANDLE ?? 'cake_byrobyn';
+const WA   = import.meta.env.PUBLIC_WHATSAPP_NUMBER  ?? '27000000000';
+const IG   = import.meta.env.PUBLIC_INSTAGRAM_HANDLE ?? 'cake_byrobyn';
+const base = import.meta.env.BASE_URL;
 
 const featured = getFeaturedProducts();
 
@@ -56,11 +57,11 @@ const igPlaceholders = [
     <!-- Background image -->
     <div class="absolute inset-0 z-0">
       <img
-        src="/brand/hero-1.jpg"
+        src={`${base}brand/hero-1.jpg`}
         alt=""
         aria-hidden="true"
         class="w-full h-full object-cover object-center"
-        onerror="this.parentElement.style.background='linear-gradient(135deg, #FAF6EF 0%, #EDE5D4 50%, #F7F1E8 100%)'"
+        onerror="this.style.display='none'"
       />
       <!-- Gentle left-side cream overlay so headline text stays legible -->
       <div class="absolute inset-0 bg-gradient-to-r from-cream-light/90 via-cream-light/60 to-transparent"></div>

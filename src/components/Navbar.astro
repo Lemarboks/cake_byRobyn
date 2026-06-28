@@ -10,6 +10,7 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
 ---
 
 <header
@@ -22,7 +23,7 @@ const currentPath = Astro.url.pathname;
     <!-- Logo -->
     <a href="/" class="flex-shrink-0 flex items-center gap-3 group" aria-label="Cake by Robyn — home">
       <img
-        src="/brand/logo.png"
+        src={`${base}brand/logo.png`}
         alt="Cake by Robyn logo"
         width="44"
         height="44"
