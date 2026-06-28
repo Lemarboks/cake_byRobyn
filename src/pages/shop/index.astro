@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { products, categories } from '../../data/products';
+---
+
+<BaseLayout
+  title="Shop — All Cakes"
+  description="Shop our full range of bespoke cakes — celebration cakes, cupcakes, wedding cakes, and sweet treats. Handcrafted in Johannesburg."
+>
+
+  <!-- Page banner -->
+  <section class="page-banner">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <span class="section-label">Handcrafted in Johannesburg</span>
+      <h1 class="font-script text-6xl md:text-7xl text-gold mt-2">The Shop</h1>
+      <p class="text-ink/60 mt-3 max-w-md mx-auto">
+        Every cake made fresh, to order. Browse, choose your options, and order via WhatsApp.
+      </p>
+    </div>
+  </section>
+
+  <!-- Category filter + product grid -->
+  <section class="py-16 bg-cream-light" aria-label="Product catalogue">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+
+      <!-- Filter tabs (JS-driven, progressive-enhancement) -->
+      <div
+        class="flex flex-wrap gap-2 justify-center mb-12"
+        id="cat-filters"
+        role="group"
+        aria-label="Filter by category"
+      >
+        {categories.map(cat => (
+          <button
+            data-cat={cat.id}
+            class:list={[
+              'filter-tab px-5 py-2 rounded-full border text-sm font-medium transition-all duration-200',
+              cat.id === 'all'
+                ? 'bg-gold text-white border-gold shadow-gold-sm'
+                : 'border-cream-dark text-ink/70 bg-white/60 hover:border-gold hover:text-gold',
+            ]}
+            aria-pressed={cat.id === 'all'}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="product-grid">
+        {products.map(product => (
+          <article
+            data-category={product.category}
+            class="group bg-cream-light rounded-xl overflow-hidden card-lift border border-cream-dark hover:border-gold/40 transition-all duration-300 reveal"
+          >
+            <a href={`/shop/${product.slug}`} class="block" aria-label={`${product.name} — ${product.priceLabel}`}>
+              <div class="relative overflow-hidden aspect-[4/5]">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                {product.badge && (
+                  <span class="absolute top-3 left-3 px-3 py-1 bg-gold text-white text-xs font-semibold rounded-full z-10">
+                    {product.badge}
+                  </span>
+                )}
+              </div>
+
+              <div class="p-5">
+                <p class="text-xs text-gold/80 uppercase tracking-widest font-medium mb-1 capitalize">
+                  {product.category.replace('-', ' ')}
+                </p>
+                <h2 class="font-serif text-ink text-base font-medium leading-snug">{product.name}</h2>
+                <p class="text-ink/55 text-xs mt-1.5 line-clamp-2">{product.description}</p>
+
+                <div class="flex items-center justify-between mt-3 pt-3 border-t border-cream-dark">
+                  <span class="text-gold font-semibold text-sm">{product.priceLabel}</span>
+                  <span class="text-xs text-ink/45">{product.servings}</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Quick view button -->
+            <div class="px-5 pb-5">
+              <a
+                href={`/shop/${product.slug}`}
+                class="btn-outline-gold text-xs px-4 py-2 w-full text-center"
+              >
+                View &amp; Order
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- No results message (shown by JS) -->
+      <p id="no-results" class="hidden text-center text-ink/50 py-16 text-lg font-serif">
+        No cakes in this category yet. <a href="/enquiry" class="text-gold hover:underline">Request a custom order →</a>
+      </p>
+
+      <!-- Custom order CTA -->
+      <div class="mt-16 text-center border-t border-cream-dark pt-12 reveal">
+        <p class="section-label">Don't see exactly what you need?</p>
+        <h2 class="font-serif text-3xl text-ink mt-1 mb-4">Every cake can be fully customised</h2>
+        <p class="text-ink/60 mb-6 max-w-md mx-auto text-sm">
+          Tell us your vision — occasion, size, flavour, theme, and budget — and Robyn will bring it to life.
+        </p>
+        <a href="/enquiry" class="btn-gold">Request a Custom Cake</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.filter-tab');
+  const cards = document.querySelectorAll<HTMLElement>('[data-category]');
+  const noResults = document.getElementById('no-results')!;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat ?? 'all';
+
+      tabs.forEach(t => {
+        const active = t.dataset.cat === cat;
+        t.setAttribute('aria-pressed', String(active));
+        t.classList.toggle('bg-gold', active);
+        t.classList.toggle('text-white', active);
+        t.classList.toggle('border-gold', active);
+        t.classList.toggle('shadow-gold-sm', active);
+        t.classList.toggle('border-cream-dark', !active);
+        t.classList.toggle('text-ink/70', !active);
+        t.classList.toggle('bg-white/60', !active);
+      });
+
+      let visible = 0;
+      cards.forEach(card => {
+        const show = cat === 'all' || card.dataset.category === cat;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      noResults.classList.toggle('hidden', visible > 0);
+    });
+  });
+
+  // Support ?cat= URL param on load
+  const param = new URLSearchParams(location.search).get('cat');
+  if (param) {
+    const btn = document.querySelector<HTMLButtonElement>(`[data-cat="${param}"]`);
+    btn?.click();
+  }
+</script>

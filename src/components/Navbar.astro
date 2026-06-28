@@ -1,0 +1,152 @@
+---
+import CartIcon from './react/CartIcon';
+
+const navLinks = [
+  { href: '/shop',    label: 'Shop' },
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/enquiry', label: 'Custom Cake' },
+  { href: '/about',   label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  id="site-nav"
+  class="fixed top-0 inset-x-0 z-30 transition-all duration-300"
+  aria-label="Site navigation"
+>
+  <nav class="nav-inner flex items-center justify-between h-[72px] px-6 md:px-10 max-w-7xl mx-auto">
+
+    <!-- Logo -->
+    <a href="/" class="flex-shrink-0 flex items-center gap-3 group" aria-label="Cake by Robyn — home">
+      <img
+        src="/brand/logo.png"
+        alt="Cake by Robyn logo"
+        width="44"
+        height="44"
+        class="rounded-full ring-1 ring-gold/30 transition-transform duration-300 group-hover:scale-105"
+        onerror="this.style.display='none'"
+      />
+      <span class="font-script text-2xl text-gold leading-none hidden sm:inline-block transition-opacity duration-300">
+        Cake by Robyn
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-7" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
+            class:list={[
+              'text-sm font-medium transition-colors duration-200 relative',
+              'after:absolute after:-bottom-0.5 after:left-0 after:h-px after:bg-gold after:transition-all after:duration-300',
+              currentPath.startsWith(link.href)
+                ? 'text-gold after:w-full'
+                : 'text-ink hover:text-gold after:w-0 hover:after:w-full',
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Right actions -->
+    <div class="flex items-center gap-3">
+      <!-- Cart icon (React island) -->
+      <CartIcon client:load />
+
+      <!-- Order CTA -->
+      <a
+        href="/enquiry"
+        class="hidden sm:inline-flex btn-gold text-xs px-5 py-2.5"
+      >
+        Order Now
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle mobile menu"
+        class="md:hidden p-2 text-ink hover:text-gold transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+      >
+        <span class="hamburger-icon block w-5 h-0.5 bg-current mb-1.5 transition-all duration-300"></span>
+        <span class="hamburger-icon block w-5 h-0.5 bg-current mb-1.5 transition-all duration-300"></span>
+        <span class="hamburger-icon block w-5 h-0.5 bg-current transition-all duration-300"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden bg-cream-light border-t border-gold/20 shadow-lg"
+    role="region"
+    aria-label="Mobile navigation"
+  >
+    <ul class="flex flex-col py-4 px-6" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
+            class:list={[
+              'block py-3 text-base font-medium border-b border-cream-dark last:border-0 transition-colors duration-200',
+              currentPath.startsWith(link.href) ? 'text-gold' : 'text-ink hover:text-gold',
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-4">
+        <a href="/enquiry" class="btn-gold w-full text-center">Order Now</a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  /* Transparent on load, opaque after scroll */
+  #site-nav { background: transparent; }
+  #site-nav.scrolled {
+    background: rgba(250, 246, 239, 0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,162,75,0.18);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+</style>
+
+<script>
+  const nav    = document.getElementById('site-nav')!;
+  const toggle = document.getElementById('nav-toggle')!;
+  const menu   = document.getElementById('mobile-menu')!;
+
+  // Scroll behaviour
+  function onScroll() {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile toggle
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    menu.classList.toggle('hidden', open);
+  });
+
+  // Close mobile menu on link click
+  menu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+    }),
+  );
+</script>

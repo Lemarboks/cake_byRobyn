@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream-light text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-ink;
+    line-height: 1.2;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.gold.DEFAULT');
+    outline-offset: 3px;
+  }
+
+  img { display: block; }
+
+  /* Reduced-motion overrides */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+}
+
+/* ── Components ───────────────────────────────────────────────────── */
+@layer components {
+
+  /* Gold shimmer text effect */
+  .gold-shimmer {
+    background: linear-gradient(
+      105deg,
+      theme('colors.gold.DEFAULT') 0%,
+      theme('colors.gold.foil')    40%,
+      theme('colors.gold.DEFAULT') 55%,
+      theme('colors.gold.dark')    100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine-sweep 3s linear infinite;
+  }
+
+  /* Thin gold horizontal rule */
+  .gold-rule {
+    @apply border-0 h-px bg-gold/30 my-8;
+  }
+
+  /* Scroll reveal — invisible until JS marks [data-revealed] */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                transform 0.65s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.45s; }
+
+  /* Section label (small caps above heading) */
+  .section-label {
+    @apply inline-block text-xs font-semibold uppercase tracking-[0.2em] text-gold mb-3;
+  }
+
+  /* Card hover lift */
+  .card-lift {
+    @apply transition-all duration-300;
+  }
+  .card-lift:hover {
+    @apply -translate-y-1.5 shadow-gold-md;
+  }
+  .card-lift:hover .card-img img {
+    @apply scale-105;
+  }
+
+  /* Page banner (interior page header) */
+  .page-banner {
+    @apply bg-cream border-b border-gold/20 pt-32 pb-16 text-center;
+  }
+  .page-banner h1 {
+    @apply text-4xl md:text-5xl font-serif text-ink mt-2;
+  }
+  .page-banner p {
+    @apply text-ink/60 mt-3 text-base max-w-xl mx-auto;
+  }
+
+  /* Form inputs */
+  .form-input {
+    @apply w-full border border-cream-dark bg-cream rounded px-4 py-3 text-sm text-ink
+           placeholder:text-ink/40 focus:outline-none focus:border-gold transition-colors duration-200;
+  }
+  .form-label {
+    @apply block text-xs font-semibold uppercase tracking-widest text-ink/60 mb-1.5;
+  }
+
+  /* Buttons */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded
+           bg-gold text-white font-semibold text-sm
+           hover:bg-gold-600 active:scale-[0.97]
+           shadow-gold-sm hover:shadow-gold-md
+           transition-all duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2;
+  }
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded
+           border border-gold text-gold font-semibold text-sm
+           hover:bg-gold hover:text-white active:scale-[0.97]
+           transition-all duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded
+           border border-ink/20 text-ink font-semibold text-sm
+           hover:border-gold hover:text-gold active:scale-[0.97]
+           transition-all duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2;
+  }
+
+  /* WhatsApp green button */
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded
+           bg-[#25D366] text-white font-semibold text-sm
+           hover:bg-[#1ebe5d] active:scale-[0.97]
+           transition-all duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2;
+  }
+}
+
+/* ── Utilities ────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+}

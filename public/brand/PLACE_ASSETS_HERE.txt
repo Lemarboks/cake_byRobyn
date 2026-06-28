@@ -1,0 +1,9 @@
+Place the following brand asset files in this directory:
+
+  logo.png      — Primary circular gold-and-cream badge logo. Used in navbar and footer.
+  logo-flat.png — Same logo without the cream background (gold + black only).
+                  Used on cream/light backgrounds where the badge circle is not wanted.
+  hero-1.jpg    — Main hero background image (gold-on-cream, open negative space on left).
+  hero-2.jpg    — Secondary hero image (optional, used for home carousel or fallback).
+
+The site will fall back to CSS-gradient placeholders until real images are provided.

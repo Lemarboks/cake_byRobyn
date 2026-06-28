@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GalleryLightbox from '../components/react/GalleryLightbox';
+import { galleryItems } from '../data/gallery';
+---
+
+<BaseLayout
+  title="Gallery — Our Portfolio"
+  description="Browse our full portfolio of bespoke cakes — birthday, wedding, vintage, kids, cupcakes, baby shower, and corporate. Based in Johannesburg."
+>
+
+  <!-- Banner -->
+  <section class="page-banner">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <span class="section-label">Our Portfolio</span>
+      <h1 class="font-script text-6xl md:text-7xl text-gold mt-2">The Gallery</h1>
+      <p class="text-ink/60 mt-3 max-w-md mx-auto">
+        Filter by occasion and find the perfect inspiration for your celebration.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery with lightbox (React island) -->
+  <section class="py-16 bg-cream-light" aria-label="Cake gallery">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <GalleryLightbox items={galleryItems} client:load />
+
+      <!-- CTA -->
+      <div class="mt-16 text-center border-t border-cream-dark pt-12">
+        <p class="section-label">Love what you see?</p>
+        <h2 class="font-serif text-3xl text-ink mt-1 mb-4">Let's create your cake</h2>
+        <a href="/enquiry" class="btn-gold">Request a Custom Cake</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
