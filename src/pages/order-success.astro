@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Order Confirmed"
+  description="Thank you for your order with Cake by Robyn!"
+  noindex={true}
+>
+  <section class="min-h-screen flex items-center justify-center bg-cream-light px-6 py-24">
+    <div class="max-w-lg w-full text-center">
+
+      <!-- Gold checkmark -->
+      <div class="w-20 h-20 rounded-full bg-gold/10 border-2 border-gold flex items-center justify-center mx-auto mb-8 animate-fade-rise">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+
+      <h1 class="font-script text-5xl md:text-6xl text-gold mb-3 animate-fade-rise" style="animation-delay:0.1s;animation-fill-mode:both">
+        Thank you!
+      </h1>
+      <p class="font-serif text-2xl text-ink mb-4 animate-fade-rise" style="animation-delay:0.2s;animation-fill-mode:both">
+        Your order has been placed.
+      </p>
+      <p class="text-ink/65 leading-relaxed mb-8 animate-fade-rise" style="animation-delay:0.3s;animation-fill-mode:both">
+        Payment received successfully. Robyn will be in touch within 24 hours to confirm your order details, discuss flavours and delivery, and get everything just right for your celebration.
+      </p>
+
+      <div class="bg-cream rounded-2xl border border-cream-dark p-6 mb-8 text-left animate-fade-rise" style="animation-delay:0.4s;animation-fill-mode:both">
+        <h2 class="font-serif text-ink text-lg mb-4">What happens next?</h2>
+        <ol class="space-y-3" role="list">
+          {[
+            'You\'ll receive a PayFast payment confirmation email shortly.',
+            'Robyn will contact you within 24 hours to confirm your order and discuss any final details.',
+            'A 50% production deposit is included in your payment — the balance (if any) is confirmed by Robyn.',
+            'Your cake will be freshly prepared and ready for collection or delivery on your chosen date.',
+          ].map((step, i) => (
+            <li class="flex gap-3 text-sm text-ink/70">
+              <span class="w-6 h-6 rounded-full bg-gold/15 text-gold text-xs flex-shrink-0 flex items-center justify-center font-semibold">{i + 1}</span>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 animate-fade-rise" style="animation-delay:0.5s;animation-fill-mode:both">
+        <a href={base} class="btn-gold">Back to Home</a>
+        <a href={`${base}shop`} class="btn-outline-gold">Continue Shopping</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
