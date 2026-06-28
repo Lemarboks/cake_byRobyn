@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -64,7 +65,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <p class="font-script text-2xl text-gold">"A cake isn't just a dessert. It's the centrepiece of a memory."</p>
           </blockquote>
 
-          <a href="/enquiry" class="btn-gold inline-flex">Work With Me</a>
+          <a href={`${base}enquiry`} class="btn-gold inline-flex">Work With Me</a>
         </div>
       </div>
     </div>
@@ -149,7 +150,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div class="text-center mt-10 reveal">
-        <a href="/gallery" class="btn-outline-gold">View Full Gallery</a>
+        <a href={`${base}gallery`} class="btn-outline-gold">View Full Gallery</a>
       </div>
     </div>
   </section>
@@ -162,10 +163,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Every celebration deserves a cake that matches the moment. Let's chat about yours.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="/enquiry" class="px-8 py-3.5 bg-white text-gold font-semibold rounded hover:bg-cream-light transition-colors">
+        <a href={`${base}enquiry`} class="px-8 py-3.5 bg-white text-gold font-semibold rounded hover:bg-cream-light transition-colors">
           Start an Enquiry
         </a>
-        <a href="/contact" class="px-8 py-3.5 border border-white/60 text-white font-semibold rounded hover:bg-white/10 transition-colors">
+        <a href={`${base}contact`} class="px-8 py-3.5 border border-white/60 text-white font-semibold rounded hover:bg-white/10 transition-colors">
           Contact
         </a>
       </div>

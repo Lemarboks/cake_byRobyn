@@ -2,16 +2,16 @@
 import CartIcon from './react/CartIcon';
 
 const navLinks = [
-  { href: '/shop',    label: 'Shop' },
-  { href: '/gallery', label: 'Gallery' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/enquiry', label: 'Custom Cake' },
-  { href: '/faq',     label: 'FAQ' },
-  { href: '/about',   label: 'About' },
+  { path: 'shop',    label: 'Shop' },
+  { path: 'gallery', label: 'Gallery' },
+  { path: 'pricing', label: 'Pricing' },
+  { path: 'enquiry', label: 'Custom Cake' },
+  { path: 'faq',     label: 'FAQ' },
+  { path: 'about',   label: 'About' },
 ];
 
+const base        = import.meta.env.BASE_URL;           // "/cake_byRobyn/"
 const currentPath = Astro.url.pathname;
-const base = import.meta.env.BASE_URL;
 ---
 
 <header
@@ -22,7 +22,7 @@ const base = import.meta.env.BASE_URL;
   <nav class="nav-inner flex items-center justify-between h-[72px] px-6 md:px-10 max-w-7xl mx-auto">
 
     <!-- Logo -->
-    <a href="/" class="flex-shrink-0 flex items-center gap-3 group" aria-label="Cake by Robyn — home">
+    <a href={base} class="flex-shrink-0 flex items-center gap-3 group" aria-label="Cake by Robyn — home">
       <img
         src={`${base}brand/logo.png`}
         alt="Cake by Robyn logo"
@@ -38,33 +38,35 @@ const base = import.meta.env.BASE_URL;
 
     <!-- Desktop nav -->
     <ul class="hidden md:flex items-center gap-7" role="list">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
-            class:list={[
-              'text-sm font-medium transition-colors duration-200 relative',
-              'after:absolute after:-bottom-0.5 after:left-0 after:h-px after:bg-gold after:transition-all after:duration-300',
-              currentPath.startsWith(link.href)
-                ? 'text-gold after:w-full'
-                : 'text-ink hover:text-gold after:w-0 hover:after:w-full',
-            ]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {navLinks.map(link => {
+        const href    = `${base}${link.path}`;
+        const isActive = currentPath.startsWith(href);
+        return (
+          <li>
+            <a
+              href={href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'text-sm font-medium transition-colors duration-200 relative',
+                'after:absolute after:-bottom-0.5 after:left-0 after:h-px after:bg-gold after:transition-all after:duration-300',
+                isActive
+                  ? 'text-gold after:w-full'
+                  : 'text-ink hover:text-gold after:w-0 hover:after:w-full',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        );
+      })}
     </ul>
 
     <!-- Right actions -->
     <div class="flex items-center gap-3">
-      <!-- Cart icon (React island) -->
       <CartIcon client:load />
 
-      <!-- Order CTA -->
       <a
-        href="/enquiry"
+        href={`${base}enquiry`}
         class="hidden sm:inline-flex btn-gold text-xs px-5 py-2.5"
       >
         Order Now
@@ -93,29 +95,32 @@ const base = import.meta.env.BASE_URL;
     aria-label="Mobile navigation"
   >
     <ul class="flex flex-col py-4 px-6" role="list">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
-            class:list={[
-              'block py-3 text-base font-medium border-b border-cream-dark last:border-0 transition-colors duration-200',
-              currentPath.startsWith(link.href) ? 'text-gold' : 'text-ink hover:text-gold',
-            ]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {navLinks.map(link => {
+        const href    = `${base}${link.path}`;
+        const isActive = currentPath.startsWith(href);
+        return (
+          <li>
+            <a
+              href={href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'block py-3 text-base font-medium border-b border-cream-dark last:border-0 transition-colors duration-200',
+                isActive ? 'text-gold' : 'text-ink hover:text-gold',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        );
+      })}
       <li class="pt-4">
-        <a href="/enquiry" class="btn-gold w-full text-center">Order Now</a>
+        <a href={`${base}enquiry`} class="btn-gold w-full text-center">Order Now</a>
       </li>
     </ul>
   </div>
 </header>
 
 <style>
-  /* Transparent on load, opaque after scroll */
   #site-nav { background: transparent; }
   #site-nav.scrolled {
     background: rgba(250, 246, 239, 0.96);
@@ -130,21 +135,18 @@ const base = import.meta.env.BASE_URL;
   const toggle = document.getElementById('nav-toggle')!;
   const menu   = document.getElementById('mobile-menu')!;
 
-  // Scroll behaviour
   function onScroll() {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Mobile toggle
   toggle.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!open));
     menu.classList.toggle('hidden', open);
   });
 
-  // Close mobile menu on link click
   menu.querySelectorAll('a').forEach(a =>
     a.addEventListener('click', () => {
       menu.classList.add('hidden');

@@ -6,20 +6,20 @@ const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL;
 
 const shopLinks = [
-  { href: '/shop',    label: 'All Cakes' },
-  { href: '/shop?cat=wedding',   label: 'Wedding Cakes' },
-  { href: '/shop?cat=celebration', label: 'Celebration Cakes' },
-  { href: '/shop?cat=cupcakes',  label: 'Cupcakes' },
-  { href: '/shop?cat=treats',    label: 'Treats' },
+  { href: `${base}shop`,                       label: 'All Cakes' },
+  { href: `${base}shop?cat=wedding`,            label: 'Wedding Cakes' },
+  { href: `${base}shop?cat=celebration`,        label: 'Celebration Cakes' },
+  { href: `${base}shop?cat=cupcakes`,           label: 'Cupcakes' },
+  { href: `${base}shop?cat=treats`,             label: 'Treats' },
 ];
 
 const infoLinks = [
-  { href: '/gallery',  label: 'Gallery' },
-  { href: '/pricing',  label: 'Pricing Guide' },
-  { href: '/faq',      label: 'FAQ' },
-  { href: '/enquiry',  label: 'Custom Order' },
-  { href: '/about',    label: 'About Robyn' },
-  { href: '/contact',  label: 'Contact' },
+  { href: `${base}gallery`,  label: 'Gallery' },
+  { href: `${base}pricing`,  label: 'Pricing Guide' },
+  { href: `${base}faq`,      label: 'FAQ' },
+  { href: `${base}enquiry`,  label: 'Custom Order' },
+  { href: `${base}about`,    label: 'About Robyn' },
+  { href: `${base}contact`,  label: 'Contact' },
 ];
 ---
 
@@ -121,7 +121,7 @@ const infoLinks = [
           </li>
           <li>
             <a
-              href="/contact"
+              href={`${base}contact`}
               class="text-sm text-white/55 hover:text-gold transition-colors flex items-center gap-2"
             >
               <span class="text-gold">✦</span> Contact page
@@ -131,7 +131,7 @@ const infoLinks = [
 
         <div class="mt-6 p-4 border border-gold/20 rounded">
           <p class="text-xs text-white/40 mb-2">Ready to order?</p>
-          <a href="/enquiry" class="btn-gold text-xs px-5 py-2.5 w-full text-center">Start Your Order</a>
+          <a href={`${base}enquiry`} class="btn-gold text-xs px-5 py-2.5 w-full text-center">Start Your Order</a>
         </div>
       </div>
     </div>

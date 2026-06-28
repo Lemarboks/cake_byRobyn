@@ -84,8 +84,8 @@ const igPlaceholders = [
         </p>
 
         <div class="flex flex-wrap gap-4 mt-8 animate-fade-rise" style="animation-delay:0.55s; animation-fill-mode:both">
-          <a href="/shop"    class="btn-gold">Shop Cakes</a>
-          <a href="/enquiry" class="btn-outline-gold">Custom Order</a>
+          <a href={`${base}shop`}    class="btn-gold">Shop Cakes</a>
+          <a href={`${base}enquiry`} class="btn-outline-gold">Custom Order</a>
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@ const igPlaceholders = [
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {featured.map((product, i) => (
           <a
-            href={`/shop/${product.slug}`}
+            href={`${base}shop/${product.slug}`}
             class:list={['group block rounded-xl overflow-hidden bg-cream-light card-lift reveal', `reveal-delay-${Math.min(i + 1, 4)}`]}
             aria-label={`View ${product.name} — ${product.priceLabel}`}
           >
@@ -140,7 +140,7 @@ const igPlaceholders = [
       </div>
 
       <div class="text-center mt-12 reveal">
-        <a href="/shop" class="btn-outline-gold">View All Cakes</a>
+        <a href={`${base}shop`} class="btn-outline-gold">View All Cakes</a>
       </div>
     </div>
   </section>
@@ -176,7 +176,7 @@ const igPlaceholders = [
             ))}
           </ul>
 
-          <a href="/about" class="btn-outline-gold mt-8 inline-flex">Learn About Robyn</a>
+          <a href={`${base}about`} class="btn-outline-gold mt-8 inline-flex">Learn About Robyn</a>
         </div>
 
         <!-- Image -->
@@ -231,7 +231,7 @@ const igPlaceholders = [
       </div>
 
       <div class="mt-14 reveal">
-        <a href="/enquiry" class="btn-gold">Start Your Order</a>
+        <a href={`${base}enquiry`} class="btn-gold">Start Your Order</a>
       </div>
     </div>
   </section>
@@ -363,7 +363,7 @@ const igPlaceholders = [
         or browse the shop to begin your order.
       </p>
       <div class="flex flex-wrap justify-center gap-4 reveal reveal-delay-2">
-        <a href="/enquiry" class="px-8 py-3.5 bg-white text-gold font-semibold rounded hover:bg-cream-light transition-colors">
+        <a href={`${base}enquiry`} class="px-8 py-3.5 bg-white text-gold font-semibold rounded hover:bg-cream-light transition-colors">
           Custom Order
         </a>
         <a

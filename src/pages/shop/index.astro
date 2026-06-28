@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { products, categories } from '../../data/products';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -53,7 +54,7 @@ import { products, categories } from '../../data/products';
             data-category={product.category}
             class="group bg-cream-light rounded-xl overflow-hidden card-lift border border-cream-dark hover:border-gold/40 transition-all duration-300 reveal"
           >
-            <a href={`/shop/${product.slug}`} class="block" aria-label={`${product.name} — ${product.priceLabel}`}>
+            <a href={`${base}shop/${product.slug}`} class="block" aria-label={`${product.name} — ${product.priceLabel}`}>
               <div class="relative overflow-hidden aspect-[4/5]">
                 <img
                   src={product.image}
@@ -85,7 +86,7 @@ import { products, categories } from '../../data/products';
             <!-- Quick view button -->
             <div class="px-5 pb-5">
               <a
-                href={`/shop/${product.slug}`}
+                href={`${base}shop/${product.slug}`}
                 class="btn-outline-gold text-xs px-4 py-2 w-full text-center"
               >
                 View &amp; Order
@@ -97,7 +98,7 @@ import { products, categories } from '../../data/products';
 
       <!-- No results message (shown by JS) -->
       <p id="no-results" class="hidden text-center text-ink/50 py-16 text-lg font-serif">
-        No cakes in this category yet. <a href="/enquiry" class="text-gold hover:underline">Request a custom order →</a>
+        No cakes in this category yet. <a href={`${base}enquiry`} class="text-gold hover:underline">Request a custom order →</a>
       </p>
 
       <!-- Custom order CTA -->
@@ -107,7 +108,7 @@ import { products, categories } from '../../data/products';
         <p class="text-ink/60 mb-6 max-w-md mx-auto text-sm">
           Tell us your vision — occasion, size, flavour, theme, and budget — and Robyn will bring it to life.
         </p>
-        <a href="/enquiry" class="btn-gold">Request a Custom Cake</a>
+        <a href={`${base}enquiry`} class="btn-gold">Request a Custom Cake</a>
       </div>
     </div>
   </section>

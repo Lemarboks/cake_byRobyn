@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const WA = import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '27000000000';
+const WA   = import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '27000000000';
+const base = import.meta.env.BASE_URL;
 
 const occasions = [
   'Birthday', 'Wedding', 'Baby Shower', 'Corporate Event',
@@ -188,7 +189,7 @@ const budgetRanges = [
                 Prepare WhatsApp Message
               </button>
               <a
-                href="/shop"
+                href={`${base}shop`}
                 class="btn-ghost flex-1 text-center"
               >
                 Browse Shop Instead
