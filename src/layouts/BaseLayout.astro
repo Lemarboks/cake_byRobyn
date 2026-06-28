@@ -23,8 +23,8 @@ const {
   schema,
 } = Astro.props;
 
-const siteUrl = `https://lemarboks.github.io/cake_byRobyn`;
-const base    = import.meta.env.BASE_URL;
+const siteUrl   = 'https://lemarboks.github.io';
+const base      = import.meta.env.BASE_URL;
 const canonical = canonicalUrl ?? `${siteUrl}${Astro.url.pathname}`;
 
 const localBusinessSchema = {
